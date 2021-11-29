@@ -14,7 +14,7 @@
                 </div>
 
                 <div class="w-full lg:w-6/12 px-6 lg:px-0 lg:pl-10" data-aos="fade-left" data-aos-duration="1500">
-                    <p class="mb-4 text-orange font-bold uppercase tracking-wider">Sneaker Company</p>
+                    <p class="mb-4 text-orange font-bold uppercase tracking-wider">Sneaker <span class="text"></span><span class="cursor">_</span></p>
                     <h1 class="name mb-6 text-3xl lg:text-5xl font-bold"></h1>
                     <p class="mb-6 text-grayish-blue-dark leading-loose">{{ description }}</p>
                     <div class="mb-10 flex items-center justify-between lg:block">
@@ -109,6 +109,8 @@
             }
 
             // Animations
+            const words = ['Company', 'Shoes', 'Collections'];
+
             onMounted(() => {
                 AOS.init({
                     delay: 1000
@@ -122,6 +124,33 @@
                         ease : 'none'
                     }
                 })
+                
+                // Cursor infinity run
+                gsap.to('.cursor', {
+                    duration : 1,
+                    opacity : 0,
+                    ease : 'power2.inOut', 
+                    repeat : -1
+                })
+                
+                // Change words
+                let masterTimeline = gsap.timeline({repeat : -1});
+
+                words.forEach(word => {
+                    let tl = gsap.timeline({
+                        repeat : 1,
+                        yoyo : true,
+                        repeatDelay : 1
+                    });
+
+                    tl.to('.text', {
+                        duration : 1.5,
+                        text : word
+                    });
+
+                    masterTimeline.add(tl);
+                })
+
             });
 
             return {
