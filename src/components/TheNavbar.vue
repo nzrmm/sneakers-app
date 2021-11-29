@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav data-aos="fade-down" data-aos-duration="1500">
     <div class="container">
       <div class="py-4 lg:py-0 flex items-center border-b border-grayish-light">
 
@@ -70,7 +70,9 @@
 </template>
 
 <script>
-  import { ref, reactive, toRefs, computed } from 'vue';
+  import { ref, reactive, toRefs, computed, onMounted } from 'vue';
+  import AOS from 'aos';
+  import 'aos/dist/aos.css';
 
   export default {
     name : 'TheNavbar',
@@ -96,6 +98,12 @@
         sidebar.classList.replace('left-0', '-left-full');
       }
 
+      // Animations
+      onMounted(() => {
+        AOS.init({
+          delay : 1000
+        })
+      })
       
       return {
         cartDropdown, ...toRefs(product), priceTotal, showSidebar, hideSidebar

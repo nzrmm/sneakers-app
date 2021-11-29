@@ -3,7 +3,7 @@
         <div class="container">
             <div class="flex flex-col lg:flex-row items-center lg:px-10">
 
-                <div class="w-full lg:w-6/12 p-0 lg:pr-20">
+                <div class="w-full lg:w-6/12 p-0 lg:pr-20" data-aos="fade-down-right" data-aos-duration="3000">
                     <img :src="activeImage" class="w-full rounded-2xl mb-8" alt="product-image">
                     <div class="hidden lg:flex justify-between w-full">
                         <template v-for="(thumbImage, index ) in thumbImages" :key="index">
@@ -13,9 +13,9 @@
                     </div>
                 </div>
 
-                <div class="w-full lg:w-6/12 px-6 lg:px-0 lg:pl-10">
+                <div class="w-full lg:w-6/12 px-6 lg:px-0 lg:pl-10" data-aos="fade-left" data-aos-duration="1500">
                     <p class="mb-4 text-orange font-bold uppercase tracking-wider">Sneaker Company</p>
-                    <h1 class="mb-6 text-3xl lg:text-5xl font-bold">{{ name }}</h1>
+                    <h1 class="name mb-6 text-3xl lg:text-5xl font-bold"></h1>
                     <p class="mb-6 text-grayish-blue-dark leading-loose">{{ description }}</p>
                     <div class="mb-10 flex items-center justify-between lg:block">
                         <div class="lg:mb-1 flex items-center space-x-4">
@@ -61,8 +61,14 @@
     import {
         ref,
         reactive,
-        toRefs
+        toRefs,
+        onMounted,
     } from 'vue';
+    
+    import {gsap} from 'gsap';
+    import { TextPlugin } from "gsap/TextPlugin";
+    import AOS from 'aos';
+    import 'aos/dist/aos.css';
 
     export default {
         name: 'TheMain',
@@ -76,6 +82,7 @@
                 }
             )
 
+            // Increase and Decrease order amount
             function increaseAmount() {
                 product.orderAmount++
             }
@@ -87,7 +94,8 @@
                     return false
                 }
             }
-
+            
+            // Change Image
             const activeImage = ref('./src/assets/image-product-1.jpg');
             const thumbImages = reactive([
                 './src/assets/image-product-1-thumbnail.jpg',
@@ -99,6 +107,22 @@
             function changeActiveImage(index) {
                 activeImage.value = `./src/assets/image-product-${index + 1}.jpg`
             }
+
+            // Animations
+            onMounted(() => {
+                AOS.init({
+                    delay: 1000
+                });
+                gsap.registerPlugin(TextPlugin);
+                gsap.to('.name', {
+                    duration : 2,
+                    delay : 2,
+                    text: {
+                        value : product.name,
+                        ease : 'none'
+                    }
+                })
+            });
 
             return {
                 ...toRefs(product),
