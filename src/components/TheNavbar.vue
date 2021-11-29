@@ -1,17 +1,17 @@
 <template>
   <nav>
     <div class="container">
-      <div class="flex items-center py-6 border-b border-grayish-light">
+      <div class="flex items-center border-b border-grayish-light">
         <div class="w-2/12">
           <img src="../assets/logo.svg" alt="logo">
         </div>
         <div class="w-8/12">
           <ul class="flex space-x-8 text-grayish-blue-dark">
-            <a href="#">Collections</a>
-            <a href="#">Men</a>
-            <a href="#">Women</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
+            <a href="#" class="py-8 hover:text-black border-b-4 border-opacity-0 hover:border-orange">Collections</a>
+            <a href="#" class="py-8 hover:text-black border-b-4 border-opacity-0 hover:border-orange">Men</a>
+            <a href="#" class="py-8 hover:text-black border-b-4 border-opacity-0 hover:border-orange">Women</a>
+            <a href="#" class="py-8 hover:text-black border-b-4 border-opacity-0 hover:border-orange">About</a>
+            <a href="#" class="py-8 hover:text-black border-b-4 border-opacity-0 hover:border-orange">Contact</a>
           </ul>
         </div>
         <div class="w-2/12">
@@ -29,8 +29,8 @@
                 <div class="mb-6 flex items-center">
                   <img src="../assets/image-product-1-thumbnail.jpg" class="mr-4 w-12 h-12 rounded-lg"
                     alt="cart-image-thumb">
-                  <p class="mr-2 text-sm text-grayish-blue-dark">Fall Limited Edition Sneakers $125.00 x 3 <span
-                      class="text-black font-bold">$375.00</span></p>
+                  <p class="mr-2 text-sm text-grayish-blue-dark">{{ name }} ${{ price }}.00 x {{ orderAmount }} <span
+                      class="text-black font-bold">${{ priceTotal }}.00</span></p>
                   <button><img src="../assets/icon-delete.svg" class="w-5" alt="trash-icon"></button>
                 </div>
 
@@ -54,20 +54,26 @@
 </template>
 
 <script>
-  import { ref } from 'vue';
+  import { ref, reactive, toRefs, computed } from 'vue';
 
   export default {
     name : 'TheNavbar',
     setup() {
       const cartDropdown = ref(false);
+      const product = reactive({
+        name : 'Fall Limited Edition Sneakers',
+        price : 125,
+        orderAmount : 3
+      })
 
+      const priceTotal = computed(function() {
+        return product.price * product.orderAmount;
+      })
+
+      
       return {
-        cartDropdown
+        cartDropdown, ...toRefs(product), priceTotal
       }
     }
   }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

@@ -7,37 +7,46 @@
                     <img :src="activeImage" class="w-full rounded-2xl mb-8" alt="product-image">
                     <div class="flex justify-between w-full">
                         <template v-for="(thumbImage, index ) in thumbImages" :key="index">
-                            <img :src="thumbImage" class="image-thumbnail" alt="image-thumbnail" @click="changeActiveImage(index)">
+                            <img :src="thumbImage" class="image-thumbnail" alt="image-thumbnail"
+                                @click="changeActiveImage(index)">
                         </template>
                     </div>
                 </div>
 
                 <div class="w-6/12 pl-10">
                     <p class="mb-4 text-orange font-bold uppercase tracking-wider">Sneaker Company</p>
-                    <h1 class="mb-8 text-5xl font-bold">Fall Limited Edition Sneakers</h1>
-                    <p class="mb-6 text-grayish-blue-dark leading-loose">These low-profile sneakers are your perfect casual wear companion. Featuring a durable rubber outer sole. They ll withstand everything the weather can offer.</p>
+                    <h1 class="mb-8 text-5xl font-bold">{{ name }}</h1>
+                    <p class="mb-6 text-grayish-blue-dark leading-loose">{{ description }}</p>
                     <div class="mb-10">
                         <div class="mb-1 flex items-center space-x-4">
-                            <h3 class="text-2xl font-bold">${{ price }}.00</h3>
-                            <span class="px-3 py-1 bg-orange-pale rounded-lg"><p class="text-orange font-bold">50%</p></span>
+                            <h3 class="text-2xl font-bold">${{ discPrice }}.00</h3>
+                            <span class="px-3 py-1 bg-orange-pale rounded-lg">
+                                <p class="text-orange font-bold">50%</p>
+                            </span>
                         </div>
-                        <p class="text-grayish-blue font-bold line-through">${{ discPrice }}.00</p>
+                        <p class="text-grayish-blue font-bold line-through">${{ normalPrice }}.00</p>
                     </div>
                     <div class="flex items-center space-x-4">
                         <div class="flex w-4/12">
-                            <button @click="decreaseAmount" class="w-16 h-14 bg-grayish-blue-light flex justify-center items-center rounded-tl-xl rounded-bl-xl">
+                            <button @click="decreaseAmount"
+                                class="w-14 h-12 bg-grayish-blue-light flex justify-center items-center rounded-tl-xl rounded-bl-xl">
                                 <img src="../assets/icon-minus.svg" alt="plus-icon">
                             </button>
 
-                            <input v-model="orderAmount" type="text" class="w-16 h-14 bg-grayish-blue-light text-center font-bold focus:outline-none" placeholder="0">
-                            
-                            <button @click="increaseAmount" class="w-16 h-14 bg-grayish-blue-light flex justify-center items-center rounded-tr-xl rounded-br-xl">
+                            <input v-model="orderAmount" type="text"
+                                class="w-14 h-12 bg-grayish-blue-light text-center font-bold focus:outline-none"
+                                placeholder="0">
+
+                            <button @click="increaseAmount"
+                                class="w-14 h-12 bg-grayish-blue-light flex justify-center items-center rounded-tr-xl rounded-br-xl">
                                 <img src="../assets/icon-plus.svg" alt="plus-icon">
-                            </button>    
+                            </button>
                         </div>
 
-                        <button class="w-6/12 py-3 bg-orange flex justify-center items-center rounded-xl text-white shadow-xl hover:shadow-2xl">
-                            <img src="../assets/icon-cart.svg" class="mr-4" alt=""> <span class="font-bold">Add to cart</span>
+                        <button
+                            class="w-6/12 py-3 bg-orange flex justify-center items-center rounded-xl text-white shadow-xl hover:shadow-2xl">
+                            <img src="../assets/icon-cart.svg" class="mr-4" alt=""> <span class="font-bold">Add to
+                                cart</span>
                         </button>
                     </div>
                 </div>
@@ -48,22 +57,31 @@
 </template>
 
 <script>
-    import { ref, reactive } from 'vue';
+    import {
+        ref,
+        reactive,
+        toRefs
+    } from 'vue';
 
     export default {
-        name : 'TheMain',
+        name: 'TheMain',
         setup() {
-            const price = ref(125);
-            const discPrice = ref(250)
-            const orderAmount = ref(1);
+            const product = reactive({
+                    name: 'Fall Limited Edition Sneakers',
+                    description: 'These low-profile sneakers are your perfect casual wear companion. Featuring a durable rubber outer sole. They ll withstand everything the weather can offer.',
+                    discPrice: 125,
+                    normalPrice: 250,
+                    orderAmount: 1
+                }
+            )
 
             function increaseAmount() {
-                orderAmount.value++
+                product.orderAmount++
             }
 
-            function decreaseAmount() {                
-                if(orderAmount.value > 0) {
-                    orderAmount.value--
+            function decreaseAmount() {
+                if (product.orderAmount > 0) {
+                    product.orderAmount--
                 } else {
                     return false
                 }
@@ -82,7 +100,12 @@
             }
 
             return {
-                price, discPrice, orderAmount, increaseAmount, decreaseAmount, activeImage, thumbImages, changeActiveImage
+                ...toRefs(product),
+                increaseAmount,
+                decreaseAmount,
+                activeImage,
+                thumbImages,
+                changeActiveImage
             }
         }
     }
