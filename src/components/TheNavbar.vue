@@ -5,7 +5,7 @@
 
         <!-- Hamburger Menu -->
         <div class="w-2/12 lg:hidden">
-          <img src="../assets/icon-menu.svg" alt="menu-icon">
+          <img @click="showSidebar" src="../assets/icon-menu.svg" alt="menu-icon">
         </div>
         <!-- End Hamburger Menu -->
 
@@ -14,13 +14,18 @@
         </div>
 
         <!-- Large Device -->
-        <div class="w-8/12 hidden lg:inline">
-          <ul class="flex space-x-8 text-grayish-blue-dark">
-            <a href="#" class="py-8 hover:text-black border-b-4 border-opacity-0 hover:border-orange">Collections</a>
-            <a href="#" class="py-8 hover:text-black border-b-4 border-opacity-0 hover:border-orange">Men</a>
-            <a href="#" class="py-8 hover:text-black border-b-4 border-opacity-0 hover:border-orange">Women</a>
-            <a href="#" class="py-8 hover:text-black border-b-4 border-opacity-0 hover:border-orange">About</a>
-            <a href="#" class="py-8 hover:text-black border-b-4 border-opacity-0 hover:border-orange">Contact</a>
+        <div class="sidebar p-8 lg:p-0 w-8/12 lg:block lg:static fixed -left-full top-0 bottom-0 bg-white drop-shadow-2xl lg:drop-shadow-none transition-all duration-500">
+
+          <!-- Close Button -->
+          <img @click="hideSidebar" src="../assets/icon-close.svg" class="mb-14 lg:hidden" alt="close-icon">
+          <!-- End Close Button -->
+
+          <ul class="flex flex-col lg:flex-row lg:space-x-8 text-black lg:text-grayish-blue-dark">
+            <a href="#" class="py-2 lg:py-8 font-bold lg:font-normal hover:text-black border-b-4 border-opacity-0 hover:border-orange">Collections</a>
+            <a href="#" class="py-2 lg:py-8 font-bold lg:font-normal hover:text-black border-b-4 border-opacity-0 hover:border-orange">Men</a>
+            <a href="#" class="py-2 lg:py-8 font-bold lg:font-normal hover:text-black border-b-4 border-opacity-0 hover:border-orange">Women</a>
+            <a href="#" class="py-2 lg:py-8 font-bold lg:font-normal hover:text-black border-b-4 border-opacity-0 hover:border-orange">About</a>
+            <a href="#" class="py-2 lg:py-8 font-bold lg:font-normal hover:text-black border-b-4 border-opacity-0 hover:border-orange">Contact</a>
           </ul>
         </div>
         <!-- End Large Device -->
@@ -81,9 +86,19 @@
         return product.price * product.orderAmount;
       })
 
+      function showSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.classList.replace('-left-full', 'left-0');
+      }
+
+      function hideSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.classList.replace('left-0', '-left-full');
+      }
+
       
       return {
-        cartDropdown, ...toRefs(product), priceTotal
+        cartDropdown, ...toRefs(product), priceTotal, showSidebar, hideSidebar
       }
     }
   }
