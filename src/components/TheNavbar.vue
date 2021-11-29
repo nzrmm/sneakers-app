@@ -1,11 +1,20 @@
 <template>
   <nav>
     <div class="container">
-      <div class="flex items-center border-b border-grayish-light">
-        <div class="w-2/12">
+      <div class="py-4 lg:py-0 flex items-center border-b border-grayish-light">
+
+        <!-- Hamburger Menu -->
+        <div class="w-2/12 lg:hidden">
+          <img src="../assets/icon-menu.svg" alt="menu-icon">
+        </div>
+        <!-- End Hamburger Menu -->
+
+        <div class="w-8/12 lg:w-2/12">
           <img src="../assets/logo.svg" alt="logo">
         </div>
-        <div class="w-8/12">
+
+        <!-- Large Device -->
+        <div class="w-8/12 hidden lg:inline">
           <ul class="flex space-x-8 text-grayish-blue-dark">
             <a href="#" class="py-8 hover:text-black border-b-4 border-opacity-0 hover:border-orange">Collections</a>
             <a href="#" class="py-8 hover:text-black border-b-4 border-opacity-0 hover:border-orange">Men</a>
@@ -14,6 +23,8 @@
             <a href="#" class="py-8 hover:text-black border-b-4 border-opacity-0 hover:border-orange">Contact</a>
           </ul>
         </div>
+        <!-- End Large Device -->
+
         <div class="w-2/12">
           <div class="flex items-center justify-end space-x-8">
 
@@ -21,7 +32,7 @@
             <img @click="cartDropdown = !cartDropdown" src="../assets/icon-cart.svg" class="relative cursor-pointer" alt="cart-icon">
 
             <!-- Cart Dropdown -->
-            <div v-if="cartDropdown" class="w-80 absolute top-20 bg-white rounded-xl shadow-2xl">
+            <div v-if="cartDropdown" class="w-full sm:w-80 right-0 sm:right-auto absolute top-20 bg-white rounded-xl shadow-2xl">
               <div class="p-6 border-b border-grayish-light">
                 <p class="font-bold">Cart</p>
               </div>

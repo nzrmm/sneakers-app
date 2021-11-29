@@ -1,11 +1,11 @@
 <template>
-    <main class="py-20">
+    <main class="pt-6 pb-20 lg:py-20">
         <div class="container">
-            <div class="flex items-center px-10">
+            <div class="flex flex-col lg:flex-row items-center lg:px-10">
 
-                <div class="w-6/12 pr-20">
+                <div class="w-full lg:w-6/12 p-0 lg:pr-20">
                     <img :src="activeImage" class="w-full rounded-2xl mb-8" alt="product-image">
-                    <div class="flex justify-between w-full">
+                    <div class="hidden lg:flex justify-between w-full">
                         <template v-for="(thumbImage, index ) in thumbImages" :key="index">
                             <img :src="thumbImage" class="image-thumbnail" alt="image-thumbnail"
                                 @click="changeActiveImage(index)">
@@ -13,38 +13,39 @@
                     </div>
                 </div>
 
-                <div class="w-6/12 pl-10">
+                <div class="w-full lg:w-6/12 px-6 lg:px-0 lg:pl-10">
                     <p class="mb-4 text-orange font-bold uppercase tracking-wider">Sneaker Company</p>
-                    <h1 class="mb-8 text-5xl font-bold">{{ name }}</h1>
+                    <h1 class="mb-6 text-3xl lg:text-5xl font-bold">{{ name }}</h1>
                     <p class="mb-6 text-grayish-blue-dark leading-loose">{{ description }}</p>
-                    <div class="mb-10">
-                        <div class="mb-1 flex items-center space-x-4">
+                    <div class="mb-10 flex items-center justify-between lg:block">
+                        <div class="lg:mb-1 flex items-center space-x-4">
                             <h3 class="text-2xl font-bold">${{ discPrice }}.00</h3>
-                            <span class="px-3 py-1 bg-orange-pale rounded-lg">
+                            <span class="px-3 lg:py-1 bg-orange-pale rounded-lg">
                                 <p class="text-orange font-bold">50%</p>
                             </span>
                         </div>
                         <p class="text-grayish-blue font-bold line-through">${{ normalPrice }}.00</p>
                     </div>
-                    <div class="flex items-center space-x-4">
-                        <div class="flex w-4/12">
+
+                    <div class="flex flex-col lg:flex-row items-center lg:space-x-4">
+                        <div class="flex w-full lg:w-4/12 mb-4 lg:mb-0">
                             <button @click="decreaseAmount"
-                                class="w-14 h-12 bg-grayish-blue-light flex justify-center items-center rounded-tl-xl rounded-bl-xl">
+                                class="w-2/12 lg:w-14 h-12 bg-grayish-blue-light flex justify-center items-center rounded-tl-xl rounded-bl-xl">
                                 <img src="../assets/icon-minus.svg" alt="plus-icon">
                             </button>
 
                             <input v-model="orderAmount" type="text"
-                                class="w-14 h-12 bg-grayish-blue-light text-center font-bold focus:outline-none"
+                                class="w-8/12 lg:w-14 h-12 bg-grayish-blue-light text-center font-bold focus:outline-none"
                                 placeholder="0">
 
                             <button @click="increaseAmount"
-                                class="w-14 h-12 bg-grayish-blue-light flex justify-center items-center rounded-tr-xl rounded-br-xl">
+                                class="w-2/12 lg:w-14 h-12 bg-grayish-blue-light flex justify-center items-center rounded-tr-xl rounded-br-xl">
                                 <img src="../assets/icon-plus.svg" alt="plus-icon">
                             </button>
                         </div>
 
                         <button
-                            class="w-6/12 py-3 bg-orange flex justify-center items-center rounded-xl text-white shadow-xl hover:shadow-2xl">
+                            class="w-full lg:w-6/12 py-3 bg-orange flex justify-center items-center rounded-xl text-white shadow-xl hover:shadow-2xl">
                             <img src="../assets/icon-cart.svg" class="mr-4" alt=""> <span class="font-bold">Add to
                                 cart</span>
                         </button>
